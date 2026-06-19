@@ -47,7 +47,7 @@ cd sistema-bancario-python
 Execute:
 
 ```bash
-python main.py
+python sistema-bancario-python.py
 ```
 
 ## Objetivo
