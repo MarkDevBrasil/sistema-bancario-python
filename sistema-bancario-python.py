@@ -1,84 +1,164 @@
+import os
+
+
+def limpar_tela():
+    os.system("cls" if os.name == "nt" else "clear")
+
+
+def pausar():
+    input("\nPressione ENTER para continuar...")
+
 
 # Função principal do banco
 def menu_banco():
-# Area de variaveis
- saldo = 0
- saque = None
- deposito = int
-# Estruturas de repetição
- while True:
-        loginB = int(input("""
-========    Bem vindo Ao sistema do banco ! 🏦 ==============
+# Variavel principal da função
+    saldo = 0
+# Escolha
+    while True:
+        limpar_tela()
+
+        try:
+            loginB = int(input("""
+======== Bem-vindo ao sistema do banco! 🏦 ========
+
 [1] Ver saldo
 [2] Sacar
 [3] Depositar
 [4] Sair do sistema
+
 Escolha: """))
-# Casos
+# Exeções
+        except ValueError:
+            print("Digite apenas números.")
+            pausar()
+            continue
+# Escolha caso
         match loginB:
-                case 1:
-                    print(f"Seu saldo atual é de {saldo}")
-                case 2:
-                   saque = int(input("Digite o valor do saque: "))
-                   print(f"Parabéns, você sacou R$ {saque}")
-                   if saldo < saque:
-                        print("Você não tem saldo o suficiente para sacar!")
-                   else:
-                       saldo -= saque
-                       print(f"Parabéns, você sacou {saque}")
-                case 3:
-                    deposito = int(input("Digite o valor do deposito: "))
+            case 1:
+                limpar_tela()
+                print("======== SALDO ========")
+                print(f"Seu saldo atual é de R$ {saldo}")
+                pausar()
+
+            case 2:
+                limpar_tela()
+                print("======== SAQUE ========")
+
+                try:
+                    saque = float(input("Digite o valor do saque: R$ "))
+                except ValueError:
+                    print("Valor inválido.")
+                    pausar()
+                    continue
+
+                if saque <= 0:
+                    print("O valor do saque precisa ser maior que zero.")
+                elif saldo < saque:
+                    print("Você não tem saldo suficiente para sacar!")
+                else:
+                    saldo -= saque
+                    print(f"Saque de R$ {saque} realizado com sucesso!")
+                    print(f"Seu saldo atual é de R$ {saldo}")
+
+                pausar()
+
+            case 3:
+                limpar_tela()
+                print("======== DEPÓSITO ========")
+
+                try:
+                    deposito = float(input("Digite o valor do depósito: R$ "))
+                except ValueError:
+                    print("Valor inválido.")
+                    pausar()
+                    continue
+
+                if deposito <= 0:
+                    print("O valor do depósito precisa ser maior que zero.")
+                else:
                     saldo += deposito
-                    print(f"Parabéns, você depositou: {deposito} e seu saldo agora é de: {saldo}")
-                case 4:
-                    print("Saindo....")
-                    break
-                case _:
-                    print("Opção invalida, tente novamente.")
-pass
+                    print(f"Depósito de R$ {deposito} realizado com sucesso!")
+                    print(f"Seu saldo atual é de R$ {saldo}")
+
+                pausar()
+
+            case 4:
+                limpar_tela()
+                print("Saindo do sistema bancário...")
+                pausar()
+                break
+
+            case _:
+                print("Opção inválida, tente novamente.")
+                pausar()
+
+
 # Função tela de login
 def login_tela():
-    print("====================================="
-          "          BRADESCO LOGIN   🏦💸     "
-          "=====================================")
-    # Variaveis
+# Variaveis
     usuario = ""
     senha = ""
-
-    # While
+# Repetição
     while True:
-        login = int(input("""
-    Bem vindo Ao banco Bradesco!
+        limpar_tela()
+
+        print("""
+=====================================
+          BRADESCO LOGIN 🏦💸
+=====================================
+""")
+
+        try:
+            login = int(input("""
+Bem-vindo ao banco Bradesco!
 
 [1] Registro
 [2] Login
 [3] Sair
+
 Escolha: """))
-        # Escolha caso
+# Exeções
+        except ValueError:
+            print("Digite apenas números.")
+            pausar()
+            continue
+# Escolha caso
         match login:
-            # Casos
             case 1:
-                usuario = input("Bem vindo ao registro, digite seu CPF (Apenas numeros): ")
+                limpar_tela()
+                print("======== REGISTRO ========")
+
+                usuario = input("Digite seu CPF apenas com números: ")
                 senha = input("Digite a senha desejada: ")
-                print(f"Parabéns, CPF registrado com sucesso, bem vindo {usuario}!")
+
+                print(f"\nCPF registrado com sucesso!")
+                print(f"Bem-vindo, {usuario}!")
+
+                pausar()
 
             case 2:
-                print("======== SISTEMA DE LOGIN ==============")
+                limpar_tela()
+                print("======== SISTEMA DE LOGIN ========")
+
                 log = input("Digite seu CPF para login: ")
                 senhaL = input("Digite a senha da sua conta: ")
 
                 if log == usuario and senhaL == senha:
-                    print("Login com sucesso")
+                    print("\nLogin realizado com sucesso!")
+                    pausar()
                     menu_banco()
                 else:
-                    print("Usuário não encontrado ou senha incorreta.")
+                    print("\nUsuário não encontrado ou senha incorreta.")
+                    pausar()
+
             case 3:
+                limpar_tela()
                 print("Saindo...")
                 break
 
             case _:
-                print("Inválido, tente novamente.")
+                print("Opção inválida, tente novamente.")
+                pausar()
+
+
 login_tela()
-
-
-
