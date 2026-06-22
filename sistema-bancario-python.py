@@ -1,3 +1,7 @@
+
+# Atualização 22/6/26
+
+
 import os
 
 
@@ -127,13 +131,14 @@ Escolha: """))
             case 1:
                 limpar_tela()
                 print("======== REGISTRO ========")
-
                 usuario = input("Digite seu CPF apenas com números: ")
                 senha = input("Digite a senha desejada: ")
-
-                print(f"\nCPF registrado com sucesso!")
+                if not usuario.isdigit():
+                    print("São permitidos apenas numeros!!!")
+                    pausar()
+                    continue
+                print("CPF registrado com sucesso!")
                 print(f"Bem-vindo, {usuario}!")
-
                 pausar()
 
             case 2:
